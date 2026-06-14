@@ -4,6 +4,30 @@ variable "guest_name" {
   nullable    = false
 }
 
+variable "guest_username" {
+  description = "Username to create on guest"
+  type        = string
+  nullable    = false
+}
+
+variable "ssh_public_key" {
+  description = "SSH public key to inject for root key-based auth"
+  type        = string
+  nullable    = false
+}
+
+variable "pool_name" {
+  description = "Pool for the guest"
+  type        = string
+  nullable    = true
+}
+
+variable "volume_name" {
+  description = "Name of the guest volume"
+  type        = string
+  nullable    = true
+}
+
 variable "guest_type" {
   description = "Type of the guest"
   type        = string
@@ -58,18 +82,6 @@ variable "os_machine" {
   type        = string
   nullable    = false
   default     = "pc"
-}
-
-variable "pool_name" {
-  description = "Pool for the guest"
-  type        = string
-  nullable    = true
-}
-
-variable "volume_name" {
-  description = "Name of the guest volume"
-  type        = string
-  nullable    = true
 }
 
 variable "target_device" {

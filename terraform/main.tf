@@ -11,12 +11,14 @@ module "debian_volume" {
 }
 
 module "hoddit" {
-  source      = "./modules/libvirt_domain"
-  depends_on  = [module.debian_volume]
-  guest_name  = "hoddit"
-  pool_name   = module.resource_pool.pool.name
-  volume_name = module.debian_volume.volume.name
-  running     = true
+  source         = "./modules/libvirt_domain"
+  depends_on     = [module.debian_volume]
+  guest_name     = "hoddit"
+  guest_username = "chris"
+  ssh_public_key = file(pathexpand("~/.ssh/id_ed25519.pub"))
+  pool_name      = module.resource_pool.pool.name
+  volume_name    = module.debian_volume.volume.name
+  running        = true
 }
 
 # TODO: Fix volumes and start second VM

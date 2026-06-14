@@ -14,7 +14,7 @@ variable "volume_source" {
   description = "Source for the volume"
   type        = string
   nullable    = false
-  default     = "/tmp/debian.qcow2"
+  default     = "https://cloud.debian.org/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2"
 }
 
 variable "volume_target_format" {
