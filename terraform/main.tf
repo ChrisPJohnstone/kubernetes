@@ -5,16 +5,18 @@ module "resource_pool" {
 
 module "debian_volume" {
   source      = "./modules/libvirt_volume"
+  depends_on  = [module.resource_pool]
   volume_name = "debian"
   pool_name   = module.resource_pool.pool.name
 }
 
 module "hoddit" {
-  source     = "./modules/libvirt_domain"
-  guest_name = "hoddit"
+  source      = "./modules/libvirt_domain"
+  depends_on  = [module.debian_volume]
+  guest_name  = "hoddit"
   pool_name   = module.resource_pool.pool.name
   volume_name = module.debian_volume.volume.name
-  running    = true
+  running     = true
 }
 
 # TODO: Fix volumes and start second VM

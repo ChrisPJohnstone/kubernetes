@@ -23,5 +23,33 @@ resource "libvirt_domain" "guest" {
         bus = var.target_bus
       }
     }]
+    interfaces = [
+      {
+        source = {
+          bridge = {
+            bridge = var.network_bridge
+          }
+        }
+      },
+      {
+        source = {
+          network = {
+            network = var.network_interface
+          }
+        }
+        model = {
+          type = var.network_interface_model
+        }
+      }
+    ]
+    serials = [{
+      type        = var.serial_type
+      target_port = var.serial_target_port
+    }]
+    consoles = [{
+      type        = var.console_type
+      target_type = var.console_target_type
+      target_port = var.console_target_port
+    }]
   }
 }

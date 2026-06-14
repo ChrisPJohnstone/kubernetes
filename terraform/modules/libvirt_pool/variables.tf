@@ -15,5 +15,5 @@ variable "pool_target_path" {
   description = "Path for pool target"
   type        = string
   nullable    = false
-  default     = "/tmp/libvirt/data"
+  default     = "/var/lib/libvirt/data"
 }
