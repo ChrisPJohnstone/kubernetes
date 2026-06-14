@@ -8,6 +8,7 @@
     - [libvirt](https://libvirt.org/)
 - Running
     - `libvirtd`
+    - `virtlogd`
 
 ## Documentation
 

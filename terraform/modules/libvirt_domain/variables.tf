@@ -32,11 +32,23 @@ variable "vcpu" {
   default     = 1
 }
 
-variable "source_path" {
-  description = "Source for the volume"
-  type        = string
+variable "running" {
+  description = "Wether guest should be started after creation"
+  type        = bool
   nullable    = false
-  default     = "/tmp/debian.qcow2"
+  default     = false
+}
+
+variable "pool_name" {
+  description = "Pool for the guest"
+  type        = string
+  nullable    = true
+}
+
+variable "volume_name" {
+  description = "Name of the guest volume"
+  type        = string
+  nullable    = true
 }
 
 variable "target_device" {

@@ -4,6 +4,7 @@ resource "libvirt_domain" "guest" {
   memory      = var.memory
   memory_unit = var.memory_unit
   vcpu        = var.vcpu
+  running     = var.running
   os = {
     type         = var.os_type
     type_arch    = var.os_arch
@@ -12,13 +13,14 @@ resource "libvirt_domain" "guest" {
   devices = {
     disks = [{
       source = {
-        file = {
-          file = var.source_path
+        volume = {
+          pool   = var.pool_name
+          volume = var.volume_name
         }
       }
       target = {
-        dev = target.device
-        bus = target.bus
+        dev = var.target_device
+        bus = var.target_bus
       }
     }]
   }
