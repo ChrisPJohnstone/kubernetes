@@ -22,10 +22,11 @@ variable "pool_name" {
   nullable    = true
 }
 
-variable "volume_name" {
-  description = "Name of the guest volume"
+variable "volume_source" {
+  description = "Source for the volume"
   type        = string
-  nullable    = true
+  nullable    = false
+  default     = "https://cloud.debian.org/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2"
 }
 
 variable "guest_type" {

@@ -1,6 +1,21 @@
+resource "libvirt_volume" "guest_volume" {
+  name = "${var.guest_name}-volume.qcow2"
+  pool = var.pool_name
+  create = {
+    content = {
+      url = var.volume_source
+    }
+  }
+  target = {
+    format = {
+      type = "qcow2"
+    }
+  }
+}
+
 resource "libvirt_cloudinit_disk" "guest_seed" {
-  name = "${var.guest_name}-cloudinit"
-  user_data = <<-EOF
+  name           = "${var.guest_name}-cloudinit.iso"
+  user_data      = <<-EOF
     #cloud-config
     disable_root: true
     users:
@@ -10,7 +25,7 @@ resource "libvirt_cloudinit_disk" "guest_seed" {
         sudo: ALL=(ALL) NOPASSWD:ALL
         shell: /bin/bash
   EOF
-  meta_data = <<-EOF
+  meta_data      = <<-EOF
     instance-id: ${var.guest_name}
     local-hostname: ${var.guest_name}
   EOF
@@ -51,8 +66,8 @@ resource "libvirt_domain" "guest" {
       {
         source = {
           volume = {
-            pool   = var.pool_name
-            volume = var.volume_name
+            pool   = libvirt_volume.guest_volume.pool
+            volume = libvirt_volume.guest_volume.name
           }
         }
         target = {
