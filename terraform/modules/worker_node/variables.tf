@@ -40,14 +40,7 @@ variable "memory" {
   description = "Maximum memory allocation for the vm at boot time"
   type        = number
   nullable    = false
-  default     = 2
-}
-
-variable "memory_unit" {
-  description = "Unit for memory allocation"
-  type        = string
-  nullable    = false
-  default     = "Gb"
+  default     = 2 * 1024
 }
 
 variable "vcpu" {
@@ -64,13 +57,6 @@ variable "running" {
   default     = false
 }
 
-variable "os_type" {
-  description = "OS Type"
-  type        = string
-  nullable    = false
-  default     = "hvm"
-}
-
 variable "os_arch" {
   description = "OS Architecture"
   type        = string
@@ -83,27 +69,6 @@ variable "os_machine" {
   type        = string
   nullable    = false
   default     = "pc"
-}
-
-variable "target_device" {
-  description = "Target device"
-  type        = string
-  nullable    = false
-  default     = "vda"
-}
-
-variable "target_bus" {
-  description = "Target bus"
-  type        = string
-  nullable    = false
-  default     = "virtio"
-}
-
-variable "disk_driver_type" {
-  description = "Driver Type"
-  type        = string
-  nullable    = false
-  default     = "qcow2"
 }
 
 variable "network_bridge" {
@@ -120,39 +85,11 @@ variable "network_interface" {
   default     = "default"
 }
 
-variable "network_interface_model" {
-  description = "Network interface model type"
-  type        = string
-  nullable    = false
-  default     = "virtio"
-}
-
-variable "serial_type" {
-  description = "Serial type"
-  type        = string
-  nullable    = false
-  default     = "pty"
-}
-
-variable "serial_target_port" {
-  description = "Serial target port"
-  type        = number
-  nullable    = false
-  default     = 0
-}
-
 variable "console_type" {
   description = "Console type"
   type        = string
   nullable    = false
   default     = "pty"
-}
-
-variable "console_target_type" {
-  description = "Console target type"
-  type        = string
-  nullable    = false
-  default     = "serial"
 }
 
 variable "console_target_port" {

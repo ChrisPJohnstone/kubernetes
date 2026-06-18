@@ -48,6 +48,8 @@ The [chosen technologies](#technology) were made to prioritise **learning** by m
 
 ## Roadmap
 
+### Version 1
+
 - [x] Provision libvirt pool
 - [ ] Provision Debian Virtual Machines
     - [x] Add IP to outputs
@@ -67,3 +69,7 @@ The [chosen technologies](#technology) were made to prioritise **learning** by m
     - [ ] Check how much reliance there is on systemd & consider switching away
 - [ ] Start using kubernetes terraform
 - [ ] Deploy... something
+
+### Future
+
+- Update terraform version. Rolled back to v0.8.3 as rewrite (v0.9.8) had defect with CPU porivisioning on Debian.

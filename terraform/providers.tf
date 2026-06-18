@@ -3,8 +3,11 @@ terraform {
   required_providers {
     libvirt = {
       source = "dmacvicar/libvirt"
-      # TODO: Check if version constraint can be loosened
-      version = "0.9.8"
+      version = "0.8.3"
     }
   }
+}
+
+provider "libvirt" {
+  uri = "qemu:///system"
 }

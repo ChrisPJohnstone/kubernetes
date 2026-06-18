@@ -3,6 +3,6 @@ output "guest_name" {
 }
 
 output "guest_ip" {
-  description = "IP address of the guest (from DHCP lease)"
-  value       = try(data.libvirt_domain_interface_addresses.guest.interfaces[0].addrs[0].addr, null)
+  description = "IP address of the guest"
+  value       = try(libvirt_domain.guest.network_interface[0].addresses[0], null)
 }
