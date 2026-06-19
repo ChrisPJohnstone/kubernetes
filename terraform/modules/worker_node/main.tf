@@ -42,6 +42,8 @@ resource "libvirt_cloudinit_disk" "guest_seed" {
 
       # Enable Containerd
       - sudo apt-mark hold containerd.io
+      - containerd config default | sudo tee /etc/containerd/config.toml
+      - sudo systemctl stop containerd.io # Requires restart for config to take effect
       - sudo systemctl enable --now containerd.io
 
       # Enable Kubelet
