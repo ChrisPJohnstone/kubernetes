@@ -4,6 +4,12 @@ variable "guest_name" {
   nullable    = false
 }
 
+variable "cloud_init_path" {
+  description = "Path  to cloudinit template"
+  type        = string
+  nullable    = false
+}
+
 variable "guest_username" {
   description = "Username to create on guest"
   type        = string
@@ -14,6 +20,13 @@ variable "ssh_public_key" {
   description = "SSH public key to inject for root key-based auth"
   type        = string
   nullable    = false
+}
+
+variable "apt_key_dir" {
+  description = "Directory for apt keys"
+  type        = string
+  nullable    = false
+  default     = "/etc/apt/keyrings/"
 }
 
 variable "pool_name" {
@@ -90,11 +103,4 @@ variable "console_target_port" {
   type        = number
   nullable    = false
   default     = 0
-}
-
-variable "apt_key_dir" {
-  description = "Directory for apt keys"
-  type        = string
-  nullable    = false
-  default     = "/etc/apt/keyrings/"
 }
