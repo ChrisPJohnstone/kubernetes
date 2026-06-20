@@ -1,5 +1,5 @@
-output "control_plane_ip" {
-  value = module.control_plane.guest_ip
+output "gaffer_ip" {
+  value = module.gaffer.guest_ip
 }
 
 output "hoddit_ip" {
