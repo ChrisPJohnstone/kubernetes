@@ -2,7 +2,12 @@
 
 This project exists for me to experiment, primarily with virtual machines and Kubernetes.
 
-The [chosen technologies](#technology) were made to prioritise **learning** by minimising the "magic" that happens behind the scenes. Things like [minikube](https://minikube.sigs.k8s.io), [VirtualBox](https://www.virtualbox.org/) or even cloud providers would be far more sensible for pure kubernetes exposure.
+The [chosen technologies](#technology) were made to prioritise **learning** by minimising the "magic" that happens behind the scenes.
+
+Some alternatives that would probably make life easier
+- [minikube](https://minikube.sigs.k8s.io) instead of self-provisioning
+- [VirtualBox](https://www.virtualbox.org/) instead of [libvirt](https://libvirt.org/)/[QEMU](https://www.qemu.org/)/[KVM](https://linux-kvm.org/page/Main_Page)
+- [Talos](https://www.siderolabs.com/talos-linux) instead of [Debian](https://cloud.debian.org/images/cloud/trixie/latest/) & [Cloud-Init](https://cloud-init.io/)
 
 ## Technology
 
