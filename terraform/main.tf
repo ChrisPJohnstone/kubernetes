@@ -4,7 +4,7 @@ module "resource_pool" {
 }
 
 module "control_plane" {
-  source         = "./modules/worker_node"
+  source         = "./modules/virtual_machine"
   depends_on     = [module.resource_pool]
   guest_name     = "control_plane"
   guest_username = "chris"
@@ -14,7 +14,7 @@ module "control_plane" {
 }
 
 module "doddit" {
-  source         = "./modules/worker_node"
+  source         = "./modules/virtual_machine"
   depends_on     = [module.resource_pool]
   guest_name     = "doddit"
   guest_username = "chris"
@@ -24,7 +24,7 @@ module "doddit" {
 }
 
 module "hoddit" {
-  source         = "./modules/worker_node"
+  source         = "./modules/virtual_machine"
   depends_on     = [module.resource_pool]
   guest_name     = "hoddit"
   guest_username = "chris"
