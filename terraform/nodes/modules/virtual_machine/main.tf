@@ -48,3 +48,18 @@ resource "libvirt_domain" "guest" {
     target_port = var.console_target_port
   }
 }
+
+resource "null_resource" "wait_for_cloudinit" {
+  depends_on      = [libvirt_domain.guest]
+  triggers = {
+    gaffer_ip = local.guest_ip
+  }
+  provisioner "local-exec" {
+    command = <<-EOF
+      echo "Waiting on SSH connection"
+      while ! ssh -o StrictHostKeyChecking=accept-new ${var.guest_username}@${local.guest_ip} true; do sleep 5; done
+      echo "Waiting on cloudinit"
+      ssh ${var.guest_username}@${local.guest_ip} 'cloud-init status --wait > /dev/null; rc=$?; exit $((rc == 2 ? 0 : rc))'
+    EOF
+  }
+}

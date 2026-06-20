@@ -62,9 +62,9 @@ Some alternatives that would probably make life easier
     - [x] Install, configure & enable containerd
     - [x] Install & enable kubelet
     - [x] Initalise Cluster
+    - [ ] Connect Nodes
 - [x] Extract kubeconfig
 - [ ] Set up pod network
-- [ ] Connect Nodes
 - [ ] Deploy... something
 
 ### Future
