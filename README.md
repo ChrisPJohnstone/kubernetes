@@ -61,7 +61,7 @@ The [chosen technologies](#technology) were made to prioritise **learning** by m
     - [x] Install, configure & enable containerd
     - [x] Install & enable kubelet
     - [x] Initalise Cluster
-- [ ] Extract kubeconfig
+- [x] Extract kubeconfig
 - [ ] Set up pod network
 - [ ] Connect Nodes
 - [ ] Deploy... something

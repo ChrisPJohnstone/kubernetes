@@ -25,7 +25,7 @@ resource "libvirt_domain" "guest" {
   type      = var.guest_type
   memory    = var.memory
   vcpu      = var.vcpu
-  running   = var.running
+  running   = true
   arch      = var.os_arch
   machine   = var.os_machine
   cloudinit = libvirt_cloudinit_disk.guest_seed.id
