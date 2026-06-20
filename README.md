@@ -17,6 +17,7 @@ The [chosen technologies](#technology) were made to prioritise **learning** by m
 - [containerd](https://containerd.io/) — Container runtime
 - [Kubernetes](https://kubernetes.io/) — Container orchestration platform for automating deployment, scaling, and management of containerized workloads
     - [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/) — Kubernetes cluster bootstrapping tool
+    - [flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually) - Kubernetes Container Network Interface (CNI)
 
 ## Usage
 
