@@ -44,3 +44,7 @@ runcmd:
   # Enable Kubelet
   - sudo apt-mark hold kubelet
   - sudo systemctl enable --now kubelet
+
+  %{ if is_control_node }
+  - sudo kubeadm init
+  %{ endif }

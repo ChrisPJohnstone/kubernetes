@@ -17,7 +17,7 @@ The [chosen technologies](#technology) were made to prioritise **learning** by m
 - [containerd](https://containerd.io/) — Container runtime
 - [Kubernetes](https://kubernetes.io/) — Container orchestration platform for automating deployment, scaling, and management of containerized workloads
     - [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/) — Kubernetes cluster bootstrapping tool
-    - [flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually) - Kubernetes Container Network Interface (CNI)
+    - [flannel](https://github.com/flannel-io/flannel) - Kubernetes Container Network Interface (CNI)
 
 ## Usage
 
@@ -52,7 +52,7 @@ The [chosen technologies](#technology) were made to prioritise **learning** by m
 ### Version 1
 
 - [x] Provision libvirt pool
-- [ ] Provision Debian Virtual Machines
+- [x] Provision Debian VM's with Cloud-Init
     - [x] Add IP to outputs
     - [x] Create user
     - [x] Enable SSH access
@@ -60,10 +60,10 @@ The [chosen technologies](#technology) were made to prioritise **learning** by m
     - [x] Enable IP Forwarding
     - [x] Install, configure & enable containerd
     - [x] Install & enable kubelet
-    - [ ] Initalise Cluster
-    - [ ] Set up pod network
-    - [ ] Connect Nodes
-- [ ] Start using kubernetes terraform
+    - [x] Initalise Cluster
+- [ ] Extract kubeconfig
+- [ ] Set up pod network
+- [ ] Connect Nodes
 - [ ] Deploy... something
 
 ### Future

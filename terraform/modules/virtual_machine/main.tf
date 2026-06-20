@@ -13,9 +13,10 @@ resource "libvirt_cloudinit_disk" "guest_seed" {
     local-hostname: ${var.guest_name}
   EOF
   user_data      = templatefile(var.cloud_init_path, {
-    guest_username = var.guest_username
-    ssh_public_key = var.ssh_public_key
-    apt_key_dir    = var.apt_key_dir
+    is_control_node = var.is_control_node
+    guest_username  = var.guest_username
+    ssh_public_key  = var.ssh_public_key
+    apt_key_dir     = var.apt_key_dir
   })
 }
 

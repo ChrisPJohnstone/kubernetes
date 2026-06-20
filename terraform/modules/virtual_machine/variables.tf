@@ -1,3 +1,10 @@
+variable "is_control_node" {
+  description = "Wether this is the control node"
+  type        = bool
+  nullable    = false
+  default     = false
+}
+
 variable "guest_name" {
   description = "Name of the guest"
   type        = string
