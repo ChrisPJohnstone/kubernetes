@@ -39,17 +39,13 @@ Some alternatives that would probably make life easier
 
 ### Managing Infrastructure
 
-- Initialise Terraform (First time only)
-    ```sh
-    terraform -chdir=terraform init
-    ```
 - Deploy resources
     ```sh
-    terraform -chdir=terraform apply
+    ./terraform/deploy
     ```
 - Destroy resources
     ```sh
-    terraform -chdir=terraform destroy
+    ./terraform/destroy
     ```
 
 ## Roadmap

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+function apply() {
+    local stack="${1}"
+    [[ ! -d "${stack}/.terraform" ]] && terraform -chdir="${stack}" init
+    terraform -chdir="${stack}" apply "${@:2}"
+}
+
+cd "$(dirname "$0")" || exit 1
+apply "nodes" "${@}"

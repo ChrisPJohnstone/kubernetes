@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+function destroy() {
+    local stack="${1}"
+    terraform -chdir="${stack}" destroy "${@:2}"
+}
+
+cd "$(dirname "$0")" || exit 1
+destroy "nodes" "${@}"
