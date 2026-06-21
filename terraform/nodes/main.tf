@@ -39,3 +39,18 @@ module "workers" {
   pool_name       = module.resource_pool.pool.name
   ssh_cmd         = var.ssh_cmd
 }
+
+resource "null_resource" "connect_workers" {
+  depends_on = [module.workers]
+  for_each   = toset(["hoddit", "doddit"])
+  triggers = {
+    worker_ips = module.workers[each.key].guest_ip
+  }
+  provisioner "local-exec" {
+    command = <<-EOF
+      echo "Connecting ${each.key} to cluster"
+      JOIN_CMD=$(${var.ssh_cmd} ${local.gaffer_destination} "sudo kubeadm token create --print-join-command 2>/dev/null")
+      ${var.ssh_cmd} ${var.guest_username}@${module.workers[each.key].guest_ip} "sudo $JOIN_CMD"
+    EOF
+  }
+}
