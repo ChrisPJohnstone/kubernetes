@@ -5,5 +5,5 @@ function destroy() {
 }
 
 cd "$(dirname "$0")" || exit 1
-destroy "nodes" "${@}"
 destroy "cluster" "${@}"
+destroy "nodes" "${@}"
