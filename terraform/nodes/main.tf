@@ -12,6 +12,7 @@ module "gaffer" {
   guest_username  = var.guest_username
   ssh_public_key  = file(pathexpand(var.ssh_key_path))
   pool_name       = module.resource_pool.pool.name
+  ssh_cmd         = var.ssh_cmd
 }
 
 resource "null_resource" "fetch_kubeconfig" {
@@ -22,7 +23,7 @@ resource "null_resource" "fetch_kubeconfig" {
   provisioner "local-exec" {
     command = <<-EOF
       echo "Extraction kubeconfig"
-      ssh ${var.guest_username}@${module.gaffer.guest_ip} 'sudo cat /etc/kubernetes/admin.conf' > ${var.kubeconfig_path}
+      ${var.ssh_cmd} ${local.gaffer_destination} 'sudo cat /etc/kubernetes/admin.conf' > ${var.kubeconfig_path}
     EOF
   }
 }
@@ -36,4 +37,5 @@ module "workers" {
   guest_username  = var.guest_username
   ssh_public_key  = file(pathexpand(var.ssh_key_path))
   pool_name       = module.resource_pool.pool.name
+  ssh_cmd         = var.ssh_cmd
 }

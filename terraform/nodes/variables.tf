@@ -18,3 +18,10 @@ variable "kubeconfig_path" {
   nullable    = false
   default     = "../kubeconfig"
 }
+
+variable "ssh_cmd" {
+  description = "Base SSH command to use"
+  type        = string
+  nullable    = false
+  default     = "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+}

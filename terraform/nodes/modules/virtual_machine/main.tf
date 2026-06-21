@@ -21,6 +21,10 @@ resource "libvirt_cloudinit_disk" "guest_seed" {
 }
 
 resource "libvirt_domain" "guest" {
+  depends_on = [
+    libvirt_volume.guest_volume,
+    libvirt_cloudinit_disk.guest_seed
+  ]
   name      = var.guest_name
   type      = var.guest_type
   memory    = var.memory
@@ -66,11 +70,11 @@ resource "null_resource" "wait_for_cloudinit" {
   }
   provisioner "local-exec" {
     command = <<-EOF
-      [ "${local.guest_ip}" = "" ] && echo "Guest IP not provisioned fast enough, please try again" && exit 1
+      [ "${local.guest_ip}" = "" ] && echo "Guest IP not provisioned in time, please retry deploy" && exit 1
       echo "Waiting on SSH connection"
-      while ! ssh -o StrictHostKeyChecking=accept-new ${var.guest_username}@${local.guest_ip} true; do sleep 5; done
+      while ! ${local.guest_ssh_cmd} true; do sleep 5; done
       echo "Waiting on cloudinit"
-      ssh ${var.guest_username}@${local.guest_ip} 'cloud-init status --wait > /dev/null; rc=$?; [ $rc -eq 2 ] && rc=0; exit $rc'
+      ${local.guest_ssh_cmd} 'cloud-init status --wait > /dev/null; rc=$?; [ $rc -eq 2 ] && rc=0; exit $rc'
     EOF
   }
 }

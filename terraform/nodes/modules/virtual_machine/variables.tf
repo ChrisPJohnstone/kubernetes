@@ -104,3 +104,10 @@ variable "console_target_port" {
   nullable    = false
   default     = 0
 }
+
+variable "ssh_cmd" {
+  description = "Base SSH command to use"
+  type        = string
+  nullable    = false
+  default     = "ssh"
+}
