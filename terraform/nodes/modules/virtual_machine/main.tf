@@ -6,10 +6,16 @@ resource "libvirt_volume" "guest_volume" {
 }
 
 resource "libvirt_cloudinit_disk" "guest_seed" {
-  name      = "${var.guest_name}-cloudinit.iso"
-  pool      = var.pool_name
+  name = "${var.guest_name}-cloudinit.iso"
+  pool = var.pool_name
   meta_data = templatefile("${var.template_dir}meta_data.yml", {
     guest_name = var.guest_name
+  })
+  network_config = templatefile("${var.template_dir}network.yml", {
+    guest_network_interface = var.guest_network_interface
+    guest_ip                = "${var.guest_ip}/24"
+    guest_gateway           = var.guest_gateway
+    guest_dns_servers       = jsonencode(var.guest_dns_servers)
   })
   user_data = templatefile("${var.template_dir}user_data.yml", {
     is_control_node = var.is_control_node
@@ -43,7 +49,6 @@ resource "libvirt_domain" "guest" {
 
   network_interface {
     network_name   = var.network_interface
-    wait_for_lease = true
   }
 
   console {
@@ -56,7 +61,7 @@ resource "time_sleep" "wait_for_ip" {
   depends_on = [libvirt_domain.guest]
   triggers = {
     running  = libvirt_domain.guest.running
-    guest_ip = local.guest_ip
+    guest_ip = var.guest_ip
   }
   create_duration = "10s"
 }
@@ -65,11 +70,11 @@ resource "null_resource" "wait_for_cloudinit" {
   depends_on = [time_sleep.wait_for_ip]
   triggers = {
     running  = libvirt_domain.guest.running
-    guest_ip = local.guest_ip
+    guest_ip = var.guest_ip
   }
   provisioner "local-exec" {
     command = <<-EOF
-      [ "${local.guest_ip}" = "" ] && echo "Guest IP not provisioned in time, please retry deploy" && exit 1
+      [ "${var.guest_ip}" = "" ] && echo "Guest IP not provisioned in time, please retry deploy" && exit 1
       echo "Waiting on SSH connection"
       while ! ${local.guest_ssh_cmd} true; do sleep 10; done
       echo "Waiting on cloudinit"

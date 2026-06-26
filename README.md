@@ -39,9 +39,6 @@ Some alternatives that would probably make life easier
 
 ### Managing Infrastructure
 
-> [!WARNING]
-> I haven't done static IP yet so project is currently only stable short term. Once DHCP lease cycles the state & kubeconfig will be completely broken.
-
 - Deploy resources
     ```sh
     ./terraform/deploy
@@ -71,7 +68,7 @@ This section functions mostly as a todo list / note section for myself so it mig
     - [x] Connect Nodes
 - [x] Extract kubeconfig
 - [x] Deploy something (nginx)
-- [ ] Static IP for VM's
+- [x] Static IP for VM's
 - Figure out something to deploy that covers cool scenarios (high availability, load balancing, network security, monitoring)
 
 ### Future

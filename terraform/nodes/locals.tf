@@ -1,3 +1,3 @@
 locals {
-  gaffer_destination = "${var.guest_username}@${module.gaffer.guest_ip}"
+  gaffer_destination = "${var.guest_username}@${var.node_ips["gaffer"]}"
 }

@@ -19,6 +19,24 @@ variable "kubeconfig_path" {
   default     = "../kubeconfig"
 }
 
+variable "workers" {
+  description = "Names of workers to create"
+  type        = set(string)
+  nullable    = false
+  default     = ["hoddit", "doddit"]
+}
+
+variable "node_ips" {
+  description = "Static IPs assigned to each node"
+  type        = map(string)
+  nullable    = false
+  default = {
+    gaffer = "192.168.122.10"
+    hoddit = "192.168.122.11"
+    doddit = "192.168.122.12"
+  }
+}
+
 variable "ssh_cmd" {
   description = "Base SSH command to use"
   type        = string
