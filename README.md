@@ -70,7 +70,8 @@ This section functions mostly as a todo list / note section for myself so it mig
     - [x] Connect Nodes
 - [x] Extract kubeconfig
 - [x] Deploy something (nginx)
-- [ ] Deploy Prometheus
+- [x] Deploy Prometheus
+    - [ ] Make address consistent
 - [ ] Deploy Grafana
 - Figure out something to deploy that covers cool scenarios (high availability, load balancing, network security)
 

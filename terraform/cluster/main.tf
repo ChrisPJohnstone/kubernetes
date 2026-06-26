@@ -1,54 +1,62 @@
-resource "kubernetes_namespace" "test" {
+resource "kubernetes_namespace_v1" "namespace" {
+  metadata { name = var.namespace }
+}
+
+resource "kubernetes_config_map_v1" "prometheus_config" {
   metadata {
-    name = "nginx"
+    name = "prometheus-config"
+    namespace = local.namespace
+  }
+  data = {
+    "prometheus.yml" = file("${var.config_dir}prometheus.yml")
   }
 }
 
-resource "kubernetes_deployment" "test" {
+resource "kubernetes_deployment_v1" "prometheus_deploy" {
   metadata {
-    name      = "nginx"
-    namespace = kubernetes_namespace.test.metadata[0].name
+    name = "prometheus"
+    namespace = local.namespace
   }
   spec {
-    replicas = 2
     selector {
-      match_labels = {
-        app = "MyTestApp"
-      }
+      match_labels = { app = "prometheus" }
     }
     template {
       metadata {
-        labels = {
-          app = "MyTestApp"
-        }
+        labels = { app = "prometheus" }
       }
       spec {
         container {
-          image = "nginx"
-          name  = "nginx-container"
-          port {
-            container_port = 80
+          image = "prom/prometheus"
+          name = "prometheus"
+          port { container_port = 9090 }
+          volume_mount {
+            name = "config"
+            mount_path = "/etc/prometheus"
           }
+        }
+        volume {
+          name = "config"
+          config_map { name = local.prometheus_config_map }
         }
       }
     }
   }
 }
 
-resource "kubernetes_service" "test" {
+resource "kubernetes_service_v1" "prometheus_service" {
   metadata {
-    name      = "nginx"
-    namespace = kubernetes_namespace.test.metadata[0].name
+    name      = "prometheus"
+    namespace = local.namespace
   }
   spec {
-    selector = {
-      app = kubernetes_deployment.test.spec[0].template[0].metadata[0].labels.app
-    }
     type = "NodePort"
+    selector = {
+      app = "prometheus"
+    }
     port {
-      node_port   = 30201
-      port        = 80
-      target_port = 80
+      port        = 9090
+      target_port = 9090
     }
   }
 }
