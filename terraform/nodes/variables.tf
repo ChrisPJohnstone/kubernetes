@@ -5,13 +5,6 @@ variable "guest_username" {
   default     = "chris"
 }
 
-variable "volume_source" {
-  description = "Source for the volume"
-  type        = string
-  nullable    = false
-  default     = "https://cloud.debian.org/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2"
-}
-
 variable "ssh_key_path" {
   description = "Path to SSH public key"
   type        = string
