@@ -45,6 +45,11 @@ Some alternatives that would probably make life easier
 
 ### Managing Infrastructure
 
+> [!NOTE]
+> The deploy process happens in multiple stages due to complex dependencies
+> 1. Providers don't respect ordering and kubeconfig doesn't exist until after nodes are provisioned. As such node provisioning is seperated from kubernetes provisioning
+> 2. Manifests are validated at plan time & CRD's don't exist until _after_ helm release. As such each helm release has a seperate step
+
 - Deploy resources
     ```sh
     ./terraform/deploy

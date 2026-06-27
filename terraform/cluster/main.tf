@@ -9,7 +9,7 @@ module "metallb" {
 }
 
 # module "envoy" {
-#   depends_on = [kubernetes_namespace_v1.namespace]
+#   depends_on = [module.metallb]
 #   source     = "./modules/envoy/"
 #   namespace  = local.namespace
 # }

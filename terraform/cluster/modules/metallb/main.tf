@@ -5,6 +5,7 @@ resource "helm_release" "metallb_release" {
   version          = var.metallb_version
   namespace        = var.namespace
   create_namespace = false
+  wait             = true
 }
 
 resource "kubernetes_manifest" "ip_address_pool" {
