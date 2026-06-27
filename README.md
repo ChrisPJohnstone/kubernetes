@@ -74,8 +74,10 @@ This section functions mostly as a todo list / note section for myself so it mig
     - [x] Connect Nodes
 - [x] Extract kubeconfig
 - [ ] Envoy Gateway
-    - [x] Install Helm Release
-    - [ ] Install GatewayClass, Gateway & HTTPRoute
+    - [x] Helm Release
+    - [x] GatewayClass
+    - [ ] Gateway
+    - [ ] HTTPRoute
 - [ ] MetalLB
 - [x] Prometheus
     - [ ] Make address consistent

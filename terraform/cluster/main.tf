@@ -11,6 +11,20 @@ resource "helm_release" "envoy_gateway_release" {
   create_namespace = false
 }
 
+resource "kubernetes_manifest" "envoy_gatewayclass" {
+  depends_on = [helm_release.envoy_gateway_release]
+  manifest = {
+    apiVersion = "gateway.networking.k8s.io/v1"
+    kind = "GatewayClass"
+    metadata = {
+      name = "envoy-gatewayclass"
+    }
+    spec = {
+      controllerName = "gateway.envoyproxy.io/gatewayclass-controller"
+    }
+  }
+}
+
 module "prometheus" {
   source     = "./modules/prometheus/"
   namespace  = local.namespace
