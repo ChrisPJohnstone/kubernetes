@@ -48,7 +48,7 @@ resource "libvirt_domain" "guest" {
   }
 
   network_interface {
-    network_name   = var.network_interface
+    network_name = var.network_interface
   }
 
   console {

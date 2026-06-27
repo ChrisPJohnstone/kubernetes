@@ -4,16 +4,16 @@ module "resource_pool" {
 }
 
 module "gaffer" {
-  source           = "./modules/virtual_machine"
-  depends_on       = [module.resource_pool]
-  is_control_node  = true
-  guest_name       = "gaffer"
-  template_dir     = "./templates/"
-  guest_username   = var.guest_username
-  ssh_public_key   = file(pathexpand(var.ssh_key_path))
-  pool_name        = module.resource_pool.pool.name
-  ssh_cmd          = var.ssh_cmd
-  guest_ip         = var.node_ips["gaffer"]
+  source          = "./modules/virtual_machine"
+  depends_on      = [module.resource_pool]
+  is_control_node = true
+  guest_name      = "gaffer"
+  template_dir    = "./templates/"
+  guest_username  = var.guest_username
+  ssh_public_key  = file(pathexpand(var.ssh_key_path))
+  pool_name       = module.resource_pool.pool.name
+  ssh_cmd         = var.ssh_cmd
+  guest_ip        = var.node_ips["gaffer"]
 }
 
 resource "null_resource" "fetch_kubeconfig" {
@@ -27,16 +27,16 @@ resource "null_resource" "fetch_kubeconfig" {
 }
 
 module "workers" {
-  for_each         = var.workers
-  source           = "./modules/virtual_machine"
-  depends_on       = [null_resource.fetch_kubeconfig]
-  guest_name       = each.key
-  template_dir     = "./templates/"
-  guest_username   = var.guest_username
-  ssh_public_key   = file(pathexpand(var.ssh_key_path))
-  pool_name        = module.resource_pool.pool.name
-  ssh_cmd          = var.ssh_cmd
-  guest_ip         = var.node_ips[each.key]
+  for_each       = var.workers
+  source         = "./modules/virtual_machine"
+  depends_on     = [null_resource.fetch_kubeconfig]
+  guest_name     = each.key
+  template_dir   = "./templates/"
+  guest_username = var.guest_username
+  ssh_public_key = file(pathexpand(var.ssh_key_path))
+  pool_name      = module.resource_pool.pool.name
+  ssh_cmd        = var.ssh_cmd
+  guest_ip       = var.node_ips[each.key]
 }
 
 resource "null_resource" "connect_workers" {

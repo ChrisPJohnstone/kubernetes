@@ -4,14 +4,14 @@ resource "kubernetes_namespace_v1" "namespace" {
 
 module "envoy" {
   depends_on = [kubernetes_namespace_v1.namespace]
-  source = "./modules/envoy/"
+  source     = "./modules/envoy/"
   namespace  = local.namespace
 }
 
 module "prometheus" {
-  depends_on = [kubernetes_namespace_v1.namespace]
-  source     = "./modules/prometheus/"
-  namespace  = local.namespace
+  depends_on  = [kubernetes_namespace_v1.namespace]
+  source      = "./modules/prometheus/"
+  namespace   = local.namespace
   config_path = "${var.config_dir}prometheus.yml"
 }
 
@@ -25,8 +25,8 @@ resource "kubernetes_manifest" "prometheus_route" {
       namespace = var.namespace
     }
     spec = {
-      parentRefs = [ { name = module.envoy.gateway_name } ]
-      hostnames = ["prometheus.${var.domain}"]
+      parentRefs = [{ name = module.envoy.gateway_name }]
+      hostnames  = ["prometheus.${var.domain}"]
       rules = [{
         backendRefs = [{
           name = module.prometheus.service_name

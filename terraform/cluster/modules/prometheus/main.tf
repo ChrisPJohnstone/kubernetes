@@ -1,6 +1,6 @@
 resource "kubernetes_config_map_v1" "prometheus_config" {
   metadata {
-    name = "prometheus-config"
+    name      = "prometheus-config"
     namespace = var.namespace
   }
   data = { "prometheus.yml" = file(var.config_path) }
@@ -8,7 +8,7 @@ resource "kubernetes_config_map_v1" "prometheus_config" {
 
 resource "kubernetes_deployment_v1" "prometheus_deploy" {
   metadata {
-    name = "prometheus"
+    name      = "prometheus"
     namespace = var.namespace
   }
   spec {
@@ -22,10 +22,10 @@ resource "kubernetes_deployment_v1" "prometheus_deploy" {
       spec {
         container {
           image = "prom/prometheus"
-          name = "prometheus"
+          name  = "prometheus"
           port { container_port = 9090 }
           volume_mount {
-            name = "config"
+            name       = "config"
             mount_path = "/etc/prometheus"
           }
         }

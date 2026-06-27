@@ -1,8 +1,8 @@
 resource "helm_release" "envoy_gateway_release" {
-  name = "envoy-gateway"
-  chart = "oci://docker.io/envoyproxy/gateway-helm"
-  version = var.envoy_gateway_version
-  namespace = var.namespace
+  name             = "envoy-gateway"
+  chart            = "oci://docker.io/envoyproxy/gateway-helm"
+  version          = var.envoy_gateway_version
+  namespace        = var.namespace
   create_namespace = false
 }
 
@@ -10,7 +10,7 @@ resource "kubernetes_manifest" "envoy_gatewayclass" {
   depends_on = [helm_release.envoy_gateway_release]
   manifest = {
     apiVersion = var.gatewayclass_api_version
-    kind = "GatewayClass"
+    kind       = "GatewayClass"
     metadata = {
       name = var.gatewayclass_name
     }
@@ -24,17 +24,17 @@ resource "kubernetes_manifest" "envoy_gateway" {
   depends_on = [kubernetes_manifest.envoy_gatewayclass]
   manifest = {
     apiVersion = var.gateway_api_version
-    kind = "Gateway"
+    kind       = "Gateway"
     metadata = {
-      name = "envoy-gateway"
+      name      = "envoy-gateway"
       namespace = var.namespace
     }
     spec = {
       gatewayClassName = var.gatewayclass_name
       listeners = [{
-        name = "http"
+        name     = "http"
         protocol = "HTTP"
-        port = 80
+        port     = 80
       }]
     }
   }
