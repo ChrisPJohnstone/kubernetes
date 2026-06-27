@@ -79,7 +79,7 @@ This section functions mostly as a todo list / note section for myself so it mig
     - [x] Gateway
 - [ ] MetalLB
 - [x] Prometheus
-    - [ ] HTTPRoute
+    - [x] HTTPRoute
     - [ ] Make address consistent
 - [ ] Deploy Grafana
 - Figure out something to deploy that covers cool scenarios (high availability, network security)

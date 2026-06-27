@@ -18,3 +18,10 @@ variable "namespace" {
   nullable    = false
   default     = "lab"
 }
+
+variable "domain" {
+  description = "Domain to use for services"
+  type        = string
+  nullable    = false
+  default     = "lab.local"
+}
