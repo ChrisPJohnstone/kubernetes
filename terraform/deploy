@@ -8,6 +8,9 @@ function apply() {
 set -e
 cd "$(dirname "$0")" || exit 1
 apply "nodes" "${@}"
-apply "cluster" "${@}" -target=module.metallb.helm_release.metallb_release
-# apply "cluster" "${@}" -target=module.envoy.helm_release.envoy_release
+if ! terraform -chdir="cluster" state list "module.metallb.helm_release.metallb_release"; then
+    apply "cluster" "${@}" \
+        -target="module.metallb.helm_release.metallb_release" \
+        -target="module.envoy.helm_release.envoy_gateway_release"
+fi
 apply "cluster" "${@}"

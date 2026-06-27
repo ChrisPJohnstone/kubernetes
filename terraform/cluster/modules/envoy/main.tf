@@ -4,6 +4,7 @@ resource "helm_release" "envoy_gateway_release" {
   version          = var.envoy_gateway_version
   namespace        = var.namespace
   create_namespace = false
+  wait             = true
 }
 
 resource "kubernetes_manifest" "envoy_gatewayclass" {
