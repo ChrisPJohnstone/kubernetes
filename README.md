@@ -76,7 +76,7 @@ This section functions mostly as a todo list / note section for myself so it mig
 - [ ] Envoy Gateway
     - [x] Helm Release
     - [x] GatewayClass
-    - [ ] Gateway
+    - [x] Gateway
     - [ ] HTTPRoute
 - [ ] MetalLB
 - [x] Prometheus

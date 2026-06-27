@@ -25,6 +25,27 @@ resource "kubernetes_manifest" "envoy_gatewayclass" {
   }
 }
 
+
+resource "kubernetes_manifest" "envoy_gateway" {
+  depends_on = [kubernetes_manifest.envoy_gatewayclass]
+  manifest = {
+    apiVersion = "gateway.networking.k8s.io/v1"
+    kind = "Gateway"
+    metadata = {
+      name = "envoy-gateway"
+      namespace = local.namespace
+    }
+    spec = {
+      gatewayClassName = "envoy-gatewayclass"
+      listeners = [{
+        name = "http"
+        protocol = "HTTP"
+        port = 80
+      }]
+    }
+  }
+}
+
 module "prometheus" {
   source     = "./modules/prometheus/"
   namespace  = local.namespace
