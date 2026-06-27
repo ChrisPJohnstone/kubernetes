@@ -23,7 +23,7 @@ resource "kubernetes_deployment_v1" "prometheus_deploy" {
         container {
           image = "prom/prometheus"
           name  = "prometheus"
-          port { container_port = 9090 }
+          port { container_port = var.container_port }
           volume_mount {
             name       = "config"
             mount_path = "/etc/prometheus"
@@ -49,8 +49,8 @@ resource "kubernetes_service_v1" "prometheus_service" {
       app = "prometheus"
     }
     port {
-      port        = 9090
-      target_port = 9090
+      port        = var.service_port
+      target_port = var.container_port
     }
   }
 }
@@ -65,11 +65,11 @@ resource "kubernetes_manifest" "prometheus_http_route" {
     }
     spec = {
       parentRefs = [{ name = var.gateway_name }]
-      hostnames = ["prometheus.${var.domain}"]
+      hostnames  = ["prometheus.${var.domain}"]
       rules = [{
         backendRefs = [{
-          name = "prometheus"
-          port = 9090
+          name = kubernetes_service_v1.prometheus_service.metadata[0].name
+          port = var.service_port
         }]
       }]
     }

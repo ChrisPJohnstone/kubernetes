@@ -15,10 +15,10 @@ module "envoy" {
 }
 
 module "prometheus" {
-  depends_on = [module.metallb, module.envoy]
-  source      = "./modules/prometheus/"
-  namespace   = local.namespace
-  config_path = "${var.config_dir}prometheus.yml"
+  depends_on   = [module.metallb, module.envoy]
+  source       = "./modules/prometheus/"
+  namespace    = local.namespace
+  config_path  = "${var.config_dir}prometheus.yml"
   gateway_name = module.envoy.gateway_name
-  domain      = var.domain
+  domain       = var.domain
 }
