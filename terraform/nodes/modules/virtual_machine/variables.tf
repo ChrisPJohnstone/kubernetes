@@ -70,11 +70,17 @@ variable "pool_name" {
   nullable    = true
 }
 
-variable "volume_source" {
-  description = "Source for the volume"
+variable "base_volume_id" {
+  description = "ID of base volume"
   type        = string
   nullable    = false
-  default     = "https://cloud.debian.org/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2"
+}
+
+variable "volume_size" {
+  description = "Size of the volume"
+  type        = number
+  nullable    = false
+  default     = 16 * 1024 * 1024 * 1024 # 16 Gb
 }
 
 variable "guest_type" {

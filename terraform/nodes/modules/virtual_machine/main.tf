@@ -1,8 +1,9 @@
 resource "libvirt_volume" "guest_volume" {
-  name   = "${var.guest_name}-volume.qcow2"
-  pool   = var.pool_name
-  source = var.volume_source
-  format = "qcow2"
+  name           = "${var.guest_name}-volume.qcow2"
+  pool           = var.pool_name
+  base_volume_id = var.base_volume_id
+  format         = "qcow2"
+  size           = var.volume_size
 }
 
 resource "libvirt_cloudinit_disk" "guest_seed" {

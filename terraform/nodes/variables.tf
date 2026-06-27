@@ -5,18 +5,18 @@ variable "guest_username" {
   default     = "chris"
 }
 
+variable "volume_source" {
+  description = "Source for the volume"
+  type        = string
+  nullable    = false
+  default     = "https://cloud.debian.org/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2"
+}
+
 variable "ssh_key_path" {
   description = "Path to SSH public key"
   type        = string
   nullable    = false
   default     = "~/.ssh/id_ed25519.pub"
-}
-
-variable "kubeconfig_path" {
-  description = "Where to store kubeconfig"
-  type        = string
-  nullable    = false
-  default     = "../kubeconfig"
 }
 
 variable "workers" {
@@ -42,4 +42,11 @@ variable "ssh_cmd" {
   type        = string
   nullable    = false
   default     = "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+}
+
+variable "kubeconfig_path" {
+  description = "Where to store kubeconfig"
+  type        = string
+  nullable    = false
+  default     = "../kubeconfig"
 }

@@ -3,12 +3,23 @@ module "resource_pool" {
   pool_name = "kubernetes"
 }
 
+resource "libvirt_volume" "base_volume" {
+  name   = "debian-13-base.qcow2"
+  pool   = module.resource_pool.pool.name
+  source = var.volume_source
+  format = "qcow2"
+}
+
 module "gaffer" {
-  source          = "./modules/virtual_machine"
-  depends_on      = [module.resource_pool]
+  source = "./modules/virtual_machine"
+  depends_on = [
+    module.resource_pool,
+    libvirt_volume.base_volume
+  ]
   is_control_node = true
   guest_name      = "gaffer"
   template_dir    = "./templates/"
+  base_volume_id  = libvirt_volume.base_volume.id
   guest_username  = var.guest_username
   ssh_public_key  = file(pathexpand(var.ssh_key_path))
   pool_name       = module.resource_pool.pool.name
@@ -32,6 +43,7 @@ module "workers" {
   depends_on     = [null_resource.fetch_kubeconfig]
   guest_name     = each.key
   template_dir   = "./templates/"
+  base_volume_id = libvirt_volume.base_volume.id
   guest_username = var.guest_username
   ssh_public_key = file(pathexpand(var.ssh_key_path))
   pool_name      = module.resource_pool.pool.name
