@@ -5,6 +5,7 @@ This project exists for me to experiment, primarily with virtual machines and Ku
 The [chosen technologies](#technology) were made to prioritise **learning** by minimising the "magic" that happens behind the scenes.
 
 Some alternatives that would probably make life easier
+
 - [minikube](https://minikube.sigs.k8s.io) instead of self-provisioning
 - [VirtualBox](https://www.virtualbox.org/) instead of [libvirt](https://libvirt.org/)/[QEMU](https://www.qemu.org/)/[KVM](https://linux-kvm.org/page/Main_Page)
 - [Talos](https://www.siderolabs.com/talos-linux) instead of [Debian](https://cloud.debian.org/images/cloud/trixie/latest/) & [Cloud-Init](https://cloud-init.io/)
@@ -47,6 +48,7 @@ Some alternatives that would probably make life easier
 
 > [!NOTE]
 > The deploy process happens in multiple stages due to complex dependencies
+>
 > 1. Providers don't respect ordering and kubeconfig doesn't exist until after nodes are provisioned. As such node provisioning is seperated from kubernetes provisioning
 > 2. Manifests are validated at plan time & CRD's don't exist until _after_ helm release. As such each helm release has a seperate step
 
@@ -62,15 +64,19 @@ Some alternatives that would probably make life easier
 ### Accessing Services
 
 Services behind the Envoy Gateway are accessible by hostname on `192.168.122.200`. Services are seperated using subdomain so you have to either
+
 - Add entries to `/etc/hosts`
 
     ```
     192.168.122.200 ${service}.lab.local
     ```
+
     Example for `prometheus`
+
     ```
     192.168.122.200 prometheus.lab.local
     ```
+
 - Use `curl` with the explicit `Host` header:
     ```sh
     curl -H "Host: ${service}.lab.local" "192.168.122.200"
